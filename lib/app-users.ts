@@ -11,5 +11,6 @@ export function getUserLabel(user: AppUser) {
 }
 
 export function isSharedUser(user: AppUser) {
+  void user;
   return false;
 }
