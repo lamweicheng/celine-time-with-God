@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum AppUser {
+  ANDY
+  KELLY
+  ANDY_AND_KELLY
+}
+
+enum ReadingTheme {
+  LIGHT
+  DARK
+  WARM
+}
+
+enum PreferredLandingPage {
+  DASHBOARD
+  DEVOTION
+  BIBLE
+  JOURNAL
+  PROGRESS
+}
+
+enum DevotionPlan {
+  FOUNDATIONS
+  GOSPELS_AND_PSALMS
+  WHOLE_BIBLE_YEAR
+}
+
+enum ScriptureDisplayMode {
+  ESV
+  CUVS
+  BOTH
+}
+
+enum JournalEntryType {
+  PRAYER_REQUEST
+  GRATITUDE
+  ANSWERED_PRAYER
+  REFLECTION
+}
+
+enum PrayerStatus {
+  ONGOING
+  ANSWERED
+}
+
+model AppSettings {
+  id                   String               @id @default(cuid())
+  user                 AppUser              @default(ANDY) @unique
+  readingTheme         ReadingTheme         @default(WARM)
+  fontScale            Int                  @default(100)
+  scriptureFontScale   Int                  @default(100)
+  ambienceEnabled      Boolean              @default(false)
+  ambienceYoutubeUrl   String               @default("https://www.youtube.com/watch?v=4U1xfZjvFTo&t=1384s")
+  ambienceVolume       Int                  @default(35)
+  preferredLandingPage PreferredLandingPage @default(DASHBOARD)
+  dailyDevotionPlan    DevotionPlan         @default(FOUNDATIONS)
+  scriptureDisplayMode ScriptureDisplayMode @default(BOTH)
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+}
+
+model ChapterNote {
+  id        String   @id @default(cuid())
+  user      AppUser  @default(ANDY)
+  bookSlug  String
+  chapter   Int
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([user, bookSlug, chapter])
+  @@index([user, updatedAt])
+}
+
+model ReadingProgress {
+  id          String   @id @default(cuid())
+  user        AppUser  @default(ANDY)
+  bookSlug    String
+  chapter     Int
+  completedAt DateTime @default(now())
+  lastReadAt  DateTime @default(now())
+
+  @@unique([user, bookSlug, chapter])
+  @@index([user, lastReadAt])
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  user      AppUser  @default(ANDY)
+  bookSlug  String
+  chapter   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([user, bookSlug, chapter])
+  @@index([user, updatedAt])
+}
+
+model PrayerJournalEntry {
+  id           String           @id @default(cuid())
+  user         AppUser          @default(ANDY)
+  type         JournalEntryType
+  title        String?
+  content      String           @db.Text
+  prayerStatus PrayerStatus?
+  reminderDate DateTime?
+  answeredDate DateTime?
+  entryDate    DateTime         @default(now())
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@index([user, entryDate])
+  @@index([user, prayerStatus])
+  @@index([user, reminderDate])
+}
