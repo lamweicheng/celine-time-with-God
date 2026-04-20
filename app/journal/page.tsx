@@ -23,7 +23,7 @@ export default async function JournalPage() {
   const timeZone = getRequestTimeZone();
 
   if (isSharedUser(settings.activeUser)) {
-    return <div className="stat-card text-base leading-8 text-[color:rgb(var(--muted-strong))]">Andy & Kelly mode does not include prayer tracking or note keeping. Use Progress to see how many chapters and books you have read together.</div>;
+    return <div className="stat-card text-base leading-8 text-[color:rgb(var(--muted-strong))]">Shared reading mode does not include prayer tracking or note keeping. Use Progress to see how many chapters and books have been read together.</div>;
   }
 
   const prayerRequestCount = entries.filter((entry) => entry.type === 'PRAYER_REQUEST').length;

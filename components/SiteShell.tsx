@@ -3,11 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useMemo, useRef, useState } from 'react';
-import type { AppSettings } from '@prisma/client';
+import type { AppSettings, AppUser } from '@prisma/client';
 import { AmbiencePlayer, type AmbiencePlayerHandle } from '@/components/AmbiencePlayer';
-import { ProfileSwitchNotice } from '@/components/ProfileSwitchNotice';
 import { WelcomeOverlay } from '@/components/WelcomeOverlay';
-import { UserProfileSwitcher } from '@/components/UserProfileSwitcher';
 import { isSharedUser } from '@/lib/app-users';
 import { getYoutubeVideoConfig } from '@/lib/ambience';
 import { cn } from '@/lib/utils';
@@ -21,7 +19,7 @@ const navigation = [
   { href: '/settings', label: 'Settings' }
 ];
 
-export function SiteShell({ children, settings }: { children: React.ReactNode; settings: AppSettings & { activeUser: 'ANDY' | 'KELLY' | 'ANDY_AND_KELLY' } }) {
+export function SiteShell({ children, settings }: { children: React.ReactNode; settings: AppSettings & { activeUser: AppUser } }) {
   const pathname = usePathname();
   const [isAmbiencePlaying, setIsAmbiencePlaying] = useState(false);
   const ambiencePlayerRef = useRef<AmbiencePlayerHandle | null>(null);
@@ -58,7 +56,6 @@ export function SiteShell({ children, settings }: { children: React.ReactNode; s
         ['--scripture-font-scale' as string]: `${settings.scriptureFontScale / 100}`
       }}
     >
-      <ProfileSwitchNotice />
       <WelcomeOverlay
         onToggleAmbience={() => {
           void toggleAmbience();
@@ -108,7 +105,6 @@ export function SiteShell({ children, settings }: { children: React.ReactNode; s
                 </nav>
               </div>
               <div className="flex flex-col gap-2 sm:items-end sm:justify-start sm:gap-3">
-                <UserProfileSwitcher currentUser={settings.activeUser} />
                 <button type="button" onClick={() => void toggleAmbience()} className="soft-button w-full self-start text-[0.68rem] uppercase tracking-[0.18em] sm:w-auto sm:self-end sm:text-xs">
                   {isAmbiencePlaying ? 'Pause ambience' : 'Play ambience'}
                 </button>

@@ -86,7 +86,7 @@ export default async function DevotionPage({
               <p className="eyebrow">Read Together</p>
               <h2 className="mt-2 font-display text-4xl text-[color:rgb(var(--foreground-strong))]">Track shared progress only</h2>
               <p className="mt-6 text-base leading-8 text-[color:rgb(var(--muted-strong))]">
-                Andy & Kelly mode keeps this space focused on the chapter and your shared reading progress.
+                Shared reading mode keeps this space focused on the chapter and reading progress.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <form action={markChapterRead}>
@@ -94,7 +94,7 @@ export default async function DevotionPage({
                   <input type="hidden" name="chapter" value={chapterData.reference.chapter} />
                   <input type="hidden" name="returnPath" value={returnPath} />
                   <SubmitButton pendingLabel="Marking..." variant="secondary">
-                    {chapterData.progress ? 'Read again today' : 'Mark as read together'}
+                    {chapterData.progress ? 'Read again today' : 'Mark as read'}
                   </SubmitButton>
                 </form>
                 {chapterData.progress ? (

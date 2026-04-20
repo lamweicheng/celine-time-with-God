@@ -6,7 +6,7 @@ import type { AppUser } from '@prisma/client';
 import { getUserLabel } from '@/lib/app-users';
 
 function isAppUser(value: string | null): value is AppUser {
-  return value === 'ANDY' || value === 'KELLY' || value === 'ANDY_AND_KELLY';
+  return value === 'CELINE';
 }
 
 export function ProfileSwitchNotice() {

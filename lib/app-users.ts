@@ -1,12 +1,9 @@
 import { type AppUser } from '@prisma/client';
 
-export const DEFAULT_APP_USER: AppUser = 'ANDY';
-export const SHARED_APP_USER: AppUser = 'ANDY_AND_KELLY';
+export const DEFAULT_APP_USER: AppUser = 'CELINE';
 
 export const APP_USERS: Array<{ value: AppUser; label: string }> = [
-  { value: 'ANDY', label: 'Andy' },
-  { value: 'KELLY', label: 'Kelly' },
-  { value: 'ANDY_AND_KELLY', label: 'Andy & Kelly' }
+  { value: 'CELINE', label: 'Celine' }
 ];
 
 export function getUserLabel(user: AppUser) {
@@ -14,5 +11,5 @@ export function getUserLabel(user: AppUser) {
 }
 
 export function isSharedUser(user: AppUser) {
-  return user === SHARED_APP_USER;
+  return false;
 }

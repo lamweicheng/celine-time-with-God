@@ -9,9 +9,7 @@ datasource db {
 }
 
 enum AppUser {
-  ANDY
-  KELLY
-  ANDY_AND_KELLY
+  CELINE
 }
 
 enum ReadingTheme {
@@ -54,7 +52,7 @@ enum PrayerStatus {
 
 model AppSettings {
   id                   String               @id @default(cuid())
-  user                 AppUser              @default(ANDY) @unique
+  user                 AppUser              @default(CELINE) @unique
   readingTheme         ReadingTheme         @default(WARM)
   fontScale            Int                  @default(100)
   scriptureFontScale   Int                  @default(100)
@@ -70,7 +68,7 @@ model AppSettings {
 
 model ChapterNote {
   id        String   @id @default(cuid())
-  user      AppUser  @default(ANDY)
+  user      AppUser  @default(CELINE)
   bookSlug  String
   chapter   Int
   content   String   @db.Text
@@ -83,7 +81,7 @@ model ChapterNote {
 
 model ReadingProgress {
   id          String   @id @default(cuid())
-  user        AppUser  @default(ANDY)
+  user        AppUser  @default(CELINE)
   bookSlug    String
   chapter     Int
   completedAt DateTime @default(now())
@@ -95,7 +93,7 @@ model ReadingProgress {
 
 model Bookmark {
   id        String   @id @default(cuid())
-  user      AppUser  @default(ANDY)
+  user      AppUser  @default(CELINE)
   bookSlug  String
   chapter   Int
   createdAt DateTime @default(now())
@@ -107,7 +105,7 @@ model Bookmark {
 
 model PrayerJournalEntry {
   id           String           @id @default(cuid())
-  user         AppUser          @default(ANDY)
+  user         AppUser          @default(CELINE)
   type         JournalEntryType
   title        String?
   content      String           @db.Text

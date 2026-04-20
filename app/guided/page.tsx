@@ -14,7 +14,7 @@ export default async function GuidedPage() {
   const timeZone = getRequestTimeZone();
 
   if (isSharedUser(settings.activeUser)) {
-    return <div className="stat-card text-base leading-8 text-[color:rgb(var(--muted-strong))]">Andy & Kelly mode is focused on shared reading progress only. Use Daily Devotion or Read the Bible to mark chapters read together.</div>;
+    return <div className="stat-card text-base leading-8 text-[color:rgb(var(--muted-strong))]">Shared reading mode is focused on reading progress only. Use Daily Devotion or Read the Bible to mark chapters read together.</div>;
   }
 
   const devotion = getTodaysDevotion(settings.dailyDevotionPlan, new Date(), timeZone);
